@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Categories</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Choose a category to browse ...</p>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-8 text-success h3">
+      <br/><br/>
+      <ul>
+      {% for cat in categories %}
+        <li>{{ cat.name }}</li>
+        <div class="col-8 text-success h4">
+          <ul>
+            {% for prod in products %}
+              {% if cat.id == prod.category_id%}
+                <li><a href="{% url 'product' prod.id %}">{{ prod.name }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+      </ul>
+      <br/><br/>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -20,7 +20,7 @@
                         {% if product.is_sale %}
                         
                            <div class="col mb-5">
-                                <div class="card h-50">
+                                <div class="card h-100">
                                     <!-- Sale Badge(from template) -->
                                      <div class="badge bg-light text-black position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
 
@@ -51,7 +51,7 @@
                             </div>
                         {% else %}
                             <div class="col mb-5">
-                                <div class="card h-50">
+                                <div class="card h-100">
                                     <!-- Product image-->
                                     <img class="card-img-top" src="{{ product.image.url }}" />
                                     <!-- Product details-->

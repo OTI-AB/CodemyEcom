@@ -4,10 +4,20 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.db.models import Count, Q
 
 from .models import Product, Category
 from .forms import SignUpForm
 
+def category_summary(request):
+  categories = Category.objects.all()
+  products = Product.objects.all()
+  cats=Category.objects.all().values_list('id')
+  prods=Product.objects.values_list('name')
+
+  return render(request, 'category_summary.html', {'categories': categories, 'products': products, 'prods': prods, 'cats': cats})
+  
+ 
 def category(request, cat):
   cat = cat.replace('-', ' ')
   try:
