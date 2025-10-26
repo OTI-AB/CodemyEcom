@@ -10,6 +10,13 @@
                 
 
                 {% if user.is_authenticated %}
+                    <!-- <li class="nav-item"><a class="nav-link" href="{% url 'update_user' %}">Update Profile</a></li> -->
+                    <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a href="{% url 'update_user' %}" class="dropdown-item">Update User Profile</a></li>
+                            <li><a href="{% url 'update_info' %}" class="dropdown-item">Update User Details</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li> 
@@ -17,19 +24,9 @@
                 {% endif %}
 
                 <li class="nav-item"><a class="nav-link" href="{% url 'category_summary' %}">Categories</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Search</a></li>
 
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'category_summary' %}">All Categories</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="{% url 'category' 'Biographies' %}">Biographies</a></li>
-                        <li><a class="dropdown-item" href="{% url 'category' 'Thrillers' %}">Thrillers</a></li>
-                        <li><a class="dropdown-item" href="{% url 'category' 'True Stories' %}">True Stories</a></li>
-                        <li><a class="dropdown-item" href="{% url 'category' 'Cookbooks' %}">Cookbooks</a></li>
-                        <li><a class="dropdown-item" href="{% url 'category' 'Cell Phone' %}">Cell Phone</a></li>
-                    </ul>
-                </li> -->
+
             </ul>
             <form class="d-flex">
                 <a href="{% url 'cart_summary' %}" class="btn btn-outline-dark">

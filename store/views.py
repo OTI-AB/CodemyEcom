@@ -4,18 +4,88 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from django.db.models import Count, Q
+from django.db.models import Q
 
-from .models import Product, Category
-from .forms import SignUpForm
+
+from .models import Product, Category, Profile
+from .forms import SignUpForm, UpdateUserForm, UpdatePasswordForm, UserInfoForm
+
+def search(request):
+  # Did user fill out form?
+  if request.method == 'POST':
+    searched = request.POST['searched']
+    # Query the db
+    searched = Product.objects.filter(Q(name__icontains=searched) | Q(description__icontains=searched))
+    # Test for null
+    if not searched:
+      messages.warning(request, 'Product not found, try a different search.')
+      return redirect('search')
+    return render(request, "search.html", {'searched': searched})
+  else:
+    return render(request, 'search.html', {})
+
+def update_info(request):
+  if request.user.is_authenticated:
+    current_user = Profile.objects.get(user__id=request.user.id)
+
+    form = UserInfoForm(request.POST or None, instance=current_user)
+
+    if form.is_valid():
+      form.save()
+      messages.success(request, 'Your info was successfuly updated')
+      return redirect('home')
+    return render(request, 'update_info.html', {'form': form})
+
+
+  else:
+    messages.secondary(request, 'Please login to update your information')
+    return redirect('login')
+
+def update_password(request):
+  if request.user.is_authenticated:
+    current_user = request.user
+    # Did they fill out the form
+    if request.method == 'POST':
+      form = UpdatePasswordForm(current_user, request.POST)
+      if form.is_valid():
+        form.save()
+        messages.success(request, 'Password changed, please note new password.')
+        login(request, current_user)
+        return redirect('update_user')
+      else:
+        for error in list(form.errors.values()):
+          messages.error(request, error)
+          return redirect('update_password')
+    else:
+      form = UpdatePasswordForm(current_user)
+      return render(request, 'update_password.html', {'form': form})
+
+
+  else:
+    messages.secondary(request, 'Please login to update your information')
+    return redirect('login')
+  
+
+def update_user(request):
+  if request.user.is_authenticated:
+    current_user = User.objects.get(id=request.user.id)
+    user_form = UpdateUserForm(request.POST or None, instance=current_user)
+
+    if user_form.is_valid():
+      user_form.save()
+      login(request, current_user)
+      messages.success(request, 'Your profile was successfuly updated')
+      return redirect('home')
+    return render(request, 'update_user.html', {'user_form': user_form})
+  else:
+    messages.secondary(request, 'Please login to update your information')
+    return redirect('login')
 
 def category_summary(request):
   categories = Category.objects.all()
   products = Product.objects.all()
-  cats=Category.objects.all().values_list('id')
-  prods=Product.objects.values_list('name')
 
-  return render(request, 'category_summary.html', {'categories': categories, 'products': products, 'prods': prods, 'cats': cats})
+  return render(request, 'category_summary.html', {'categories': categories, 'products': products})
   
  
 def category(request, cat):
@@ -49,7 +119,7 @@ def login_user(request):
       messages.success(request, 'Successful login, Welcome.')
       return redirect('home')
     else:
-      messages.danger(request, 'User credentials error')
+      messages.error(request, 'User credentials error')
       return redirect('login')
   else:
     return render(request, 'login.html', {})
@@ -71,8 +141,8 @@ def register_user(request):
       # Log in user
       user = authenticate(username=username, password=password)
       login(request,user)
-      messages.success(request, f'Successful Registration...Welcome {first_name}')
-      return redirect('home')
+      messages.success(request, f'Successful Registration...Please complete your information. {first_name}')
+      return redirect('update_info')
     else:
       messages.warning(request, 'Registration error.. please try again')
       return redirect('register')
