@@ -1,9 +1,12 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load environmental variables
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -14,7 +17,7 @@ SECRET_KEY = 'django-insecure-op)ql!!jtqn3k#ku@_g9=wrk1s=vn+wd)y8tq53jdx6$)cqm(k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://railway.com', 'localhost']
 
 
 # Application definition
@@ -28,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'store',
     'cart',
+    "payment",
 ]
 
 MIDDLEWARE = [
@@ -66,8 +70,14 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': os.environ.get('DB_PASSWORD_P'),
+        'HOST': 'mainline.proxy.rlwy.net',
+        'PORT': 34283 ,
     }
 }
 

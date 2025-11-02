@@ -8,6 +8,8 @@ from django.db.models import Q
 import json
 
 from cart.cart import Cart
+from payment.forms import ShippingForm
+from payment.models import ShippingAddress
 
 
 from .models import Product, Category, Profile
@@ -29,15 +31,26 @@ def search(request):
 
 def update_info(request):
   if request.user.is_authenticated:
+    # Get current user
     current_user = Profile.objects.get(user__id=request.user.id)
+    # Get current user's shipping info
+    
+    if ShippingAddress.objects.filter(user__id=request.user.id).exists():
+      shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
+    else:
+      shipping_user = ShippingAddress.objects.create(user_id=request.user.id)
 
+    # Original user info form
     form = UserInfoForm(request.POST or None, instance=current_user)
+    # Get user's shipping form
+    shipping_form = ShippingForm(request.POST or None, instance=shipping_user,)
 
-    if form.is_valid():
+    if form.is_valid() and shipping_form.is_valid():
       form.save()
-      messages.success(request, 'Your info was successfuly updated')
+      shipping_form.save()
+      messages.success(request, 'Your profile and shipping details were successfuly updated')
       return redirect('home')
-    return render(request, 'update_info.html', {'form': form})
+    return render(request, 'update_info.html', {'form': form, 'shipping_form': shipping_form})
 
 
   else:
@@ -73,6 +86,7 @@ def update_user(request):
   if request.user.is_authenticated:
     current_user = User.objects.get(id=request.user.id)
     user_form = UpdateUserForm(request.POST or None, instance=current_user)
+    
 
     if user_form.is_valid():
       user_form.save()
@@ -81,7 +95,7 @@ def update_user(request):
       return redirect('home')
     return render(request, 'update_user.html', {'user_form': user_form})
   else:
-    messages.secondary(request, 'Please login to update your information')
+    messages.success(request, 'Please login to update your information')
     return redirect('login')
 
 def category_summary(request):
@@ -117,7 +131,7 @@ def login_user(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(request, username=username, password=password)
-    if user is not None:
+    if user is not None :
       login(request, user)
 
       # Retrieve user's cart from profile
@@ -132,8 +146,6 @@ def login_user(request):
         # Loop thru the cart, add items from the db
         for key, value in converted_cart.items():
           cart.db_add(product=key, quantity=value)
-
-
       messages.success(request, 'Successful login, Welcome.')
       return redirect('home')
     else:

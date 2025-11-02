@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row col-8">
+      <div class="card">
+        <div class="card-header">
+          Order ID: {{ order.id }} Total: ${{ order.amount_paid }}
+        </div>
+        <div class="card-body">
+          Email: {{ order.email }} <br>
+          Name: {{ order.full_name }} <br>
+          Shipping Address: <pre>{{ order.shipping_address }} </pre> 
+          Items: <br>
+          {% for item in order_items %}
+            {{ item.product }} - Qty: {{ item.quantity }}  @ ${{item.price}}<br>
+          {% endfor %}
+        </div>
+        {% if not order.shipped %}
+          <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="ship_status" value="true">
+            <button type="submit" class="btn btn-primary btn-sm">Mark as Shipped</button>
+          </form>
+        {% else %}
+          <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="ship_status" value="false">
+            <button type="submit" class="btn btn-danger btn-sm">Mark as Not Shipped</button>
+          </form>
+        {% endif %} 
+        <div class="card-footer text-body-secondary">
+          {% if order.date_shipped %}
+            Ship Date: {{ order.date_shipped }}
+          {% else %}
+            Order Date: {{ order.date_ordered }}
+          {% endif %} <br>
+        </div>
+     </div>
+  </div>
+  <br><br>
+
+<br><br>
+</div>
+
+
+{% endblock %}
