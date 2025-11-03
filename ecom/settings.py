@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environmental variables
-load_dotenv()
+# load_dotenv()
 
 # password DB
 DB_PASSWORD_P = os.environ['DB_PASSWORD_P']
