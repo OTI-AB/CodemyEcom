@@ -20,9 +20,9 @@ SECRET_KEY = 'django-insecure-op)ql!!jtqn3k#ku@_g9=wrk1s=vn+wd)y8tq53jdx6$)cqm(k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['codemyecom-production.up.railway.app', 'https://codemyecom-production.up.railway.app']
-# ALLOWED_HOSTS = ['https://railway.com', 'localhost', 'codemyecom-production.up.railway.app', 'https://codemyecom-production.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['https://codemyecom-production.up.railway.app']
+# ALLOWED_HOSTS = ['codemyecom-production.up.railway.app', 'https://codemyecom-production.up.railway.app']
+ALLOWED_HOSTS = ['localhost']
+# CSRF_TRUSTED_ORIGINS = ['https://codemyecom-production.up.railway.app']
 
 
 # Application definition
@@ -77,14 +77,14 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'oKroMuMuRFLLyGSZaqGJHYXLeHSvpzIL',
-        'HOST': 'mainline.proxy.rlwy.net',
-        'PORT': 34283 ,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'railway',
+        # 'USER': 'postgres',
+        # 'PASSWORD': 'oKroMuMuRFLLyGSZaqGJHYXLeHSvpzIL',
+        # 'HOST': 'mainline.proxy.rlwy.net',
+        # 'PORT': 34283 ,
     }
 }
 
