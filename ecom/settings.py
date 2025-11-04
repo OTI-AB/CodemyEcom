@@ -21,8 +21,8 @@ SECRET_KEY = 'django-insecure-op)ql!!jtqn3k#ku@_g9=wrk1s=vn+wd)y8tq53jdx6$)cqm(k
 DEBUG = True
 
 # ALLOWED_HOSTS = ['codemyecom-production.up.railway.app', 'https://codemyecom-production.up.railway.app']
-ALLOWED_HOSTS = ['localhost']
-# CSRF_TRUSTED_ORIGINS = ['https://codemyecom-production.up.railway.app']
+ALLOWED_HOSTS = ['codemyecom-production.up.railway.app', 'https://codemyecom-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://codemyecom-production.up.railway.app']
 
 
 # Application definition
