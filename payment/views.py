@@ -204,7 +204,7 @@ def billing_info(request):
       'cancel_return': 'https://{}{}'.format(host, reverse("payment_failed")),
     }
 
-    paypal_form = PayPayPaymentsForm(initial=paypal_dict)
+    paypal_form = PayPalPaymentsForm(initial=paypal_dict)
 
     # Check if user is logged in
     if request.user.is_authenticated:
