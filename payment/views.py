@@ -8,7 +8,6 @@ from django.urls import reverse
 from django.conf import settings
 import uuid #Unique user
 from paypal.standard.forms import PayPalPaymentsForm
-# Not working in vs code
 
 from cart.cart import Cart
 from payment.forms import ShippingForm, PaymentForm
