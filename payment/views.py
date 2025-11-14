@@ -296,10 +296,10 @@ def payment_success(request):
     v = ''
 
       
-    # for key in list(request.session.keys()):
-    #   if key == 'session_key':
-    #       # Delete the key
-    #     del request.session[key]
+    for key in list(request.session.keys()):
+      if key == 'session_key':
+          # Delete the key
+        del request.session[key]
 
     return render(request, 'payment/payment_success.html', { "cart_products": cart_products, "totals": totals, "quantities": quantities, "k": k, "v": v})
 
