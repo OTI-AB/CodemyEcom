@@ -77,7 +77,7 @@ class Cart():
     # Get ids in cart
     quantities = self.cart
     return quantities
- 
+  
   def update(self, product, quantity):
     product_id = str(product)
     product_qty = int(quantity)

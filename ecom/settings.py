@@ -6,10 +6,13 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environmental variables
-# load_dotenv()
+load_dotenv()
 
 # password DB
-DB_PASSWORD_P = os.environ['DB_PASSWORD_P']
+# DB_PASSWORD_P = os.environ['DB_PASSWORD_P']
+
+# password  for db localhost 
+DB_PASSWORD_P = os.environ.get('DB_PASSWORD_P')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -21,8 +24,8 @@ SECRET_KEY = 'django-insecure-op)ql!!jtqn3k#ku@_g9=wrk1s=vn+wd)y8tq53jdx6$)cqm(k
 DEBUG = True
 
 # ALLOWED_HOSTS = ['codemyecom-production.up.railway.app', 'https://codemyecom-production.up.railway.app']
-ALLOWED_HOSTS = ['https://onsitetechnologies.ca', 'onsitetechnologies.ca','codemyecom-production.up.railway.app', 'https://codemyecom-production.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['https://onsitetechnologies.ca','https://codemyecom-production.up.railway.app']
+ALLOWED_HOSTS = ['https://onsitetechnologies.ca', 'onsitetechnologies.ca','codemyecom-production.up.railway.app', 'https://codemyecom-production.up.railway.app', 'localhost', 'inveterate-theosophically-long.ngrok-free.dev']
+CSRF_TRUSTED_ORIGINS = ['https://onsitetechnologies.ca','https://codemyecom-production.up.railway.app', 'https://inveterate-theosophically-long.ngrok-free.dev']
 
 
 # Application definition
