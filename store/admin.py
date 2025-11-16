@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.db import models
 from django.contrib.auth.models import User
 
 from store.models import Category, Customer, Product, Order, Profile
@@ -16,7 +17,7 @@ class ProfileInline(admin.StackedInline):
 # Extend user model
 class UserAdmin(admin.ModelAdmin):
   model = User
-  field = ['username', 'first_name', 'last_name', 'email']
+  field = ['username', 'first_name', 'last_name', 'email',]
   inlines = [ProfileInline]
 
 # Unregister old way

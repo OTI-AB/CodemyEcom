@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 
 # Create customer profile
 class Profile(models.Model):
+  avatar = models.ImageField(upload_to='static/assets', blank=True, null=True)
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   date_modified = models.DateTimeField(User, auto_now=True)
   phone = models.CharField(max_length=20, blank=True)

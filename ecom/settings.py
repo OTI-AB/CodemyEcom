@@ -31,6 +31,7 @@ CSRF_TRUSTED_ORIGINS = ['https://onsitetechnologies.ca','https://codemyecom-prod
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -146,3 +147,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PAYPAL_TEST = True
 
 PAYPAL_RECEIVER_EMAIL = 'business@oti.ca' # Sandbox business account
+
+JAZZMIN_SETTINGS = {
+    "copyright": "ON-SITE Technologies Inc.",
+    "show_ui_builder": True,
+    "user_avatar": 'assets/YSam.png',
+    "site_logo": 'assets/OTIgh.png',
+    "login_logo": 'assets/OTIgh.png',
+    "site_title": 'E-Com Admin',
+    "site_brand": 'E-Com Admin',
+    "welcome_sign": 'Welcome to E-Com Admin Function',
+}

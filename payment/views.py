@@ -291,17 +291,23 @@ def payment_success(request):
     cart_products = cart.get_prods
     quantities = cart.get_quants
     totals = cart.cart_total()
-
-    k = ''
-    v = ''
+    quants = []
+    for key, value in quantities().items():
+      k = str(key)
+      v = value
+      quants.append(v)
+   
+    # k = ''
+    # v = ''
+    
 
       
-    for key in list(request.session.keys()):
-      if key == 'session_key':
-          # Delete the key
-        del request.session[key]
+    # for key in list(request.session.keys()):
+    #   if key == 'session_key':
+    #       # Delete the key
+    #     del request.session[key]
 
-    return render(request, 'payment/payment_success.html', { "cart_products": cart_products, "totals": totals, "quantities": quantities, "k": k, "v": v})
+    return render(request, 'payment/payment_success.html', { "cart_products": cart_products, "totals": totals, "quantities": quantities, "k": k, "v": v, "quants": quants,})
 
 def payment_failed(request):
   return render(request, 'payment/payment_failed.html', {})
