@@ -29,4 +29,3 @@ class PaymentForm(forms.Form):
   card_province = forms.CharField(label='', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Province'}), required=True)
   card_country = forms.CharField(label='', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Country'}), required=True)
   card_postal_code = forms.CharField(label='', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Postal Code'}), required=True)
-

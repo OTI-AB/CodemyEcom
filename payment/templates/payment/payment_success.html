@@ -28,7 +28,11 @@
                             <h5 class="card-title">{{ prod.name }}</h5>
                             <p class="card-text">
                                 Price: ${{ prod.price }} <br>
-                                {{ quants }}
+                                {% for quants, vals in comb %}
+                                    {% if quants == prod.id %}
+                                        Quantity: {{vals}}
+                                    {% endif %}
+                                {% endfor %}
                             </p>
                         </div>
                     </div>
@@ -36,7 +40,6 @@
             </div>
         {% endfor %}
         <br>
-
 
         <h2 class="card-text">Order Total: ${{ totals }}</h2>
         <h4 class="card-text fw-light fst-italic">Thank You!</h4>
